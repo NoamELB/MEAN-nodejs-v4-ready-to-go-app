@@ -1,12 +1,13 @@
 'use strict';
-let gulp 		= require("gulp"),
-	sass 		= require("gulp-sass"),
-	server 		= require("gulp-develop-server"),
-	browserify 	= require("gulp-browserify"),
-	uglify 		= require("gulp-uglify"),
-	mocha 		= require("gulp-mocha"),
-	minifyCSS 	= require("gulp-minify-css"),
-	rename 		= require("gulp-rename");
+let gulp 		= require('gulp'),
+	babelify	= require('babelify'),
+	sass 		= require('gulp-sass'),
+	mocha 		= require('gulp-mocha'),
+	uglify 		= require('gulp-uglify'),
+	rename 		= require('gulp-rename'),
+	minifyCSS 	= require('gulp-minify-css'),
+	browserify 	= require('gulp-browserify'),
+	server 		= require('gulp-develop-server');
 
 // Server unit tests
 gulp.task("server:tests", () => {
@@ -33,7 +34,8 @@ gulp.task("minify:css",  () => {
 gulp.task("scripts:browserify", () => {
 	gulp.src("app/assets/packages/index.js")
 		.pipe(browserify({
-			insertGlobals : true
+			insertGlobals : true,
+			transform: [babelify]
 		}))
 		.pipe(rename("main.js"))
 		.pipe(gulp.dest("app/assets"));

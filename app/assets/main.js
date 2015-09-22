@@ -1,138 +1,142 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.module', [
-			'ngResource',
-    		'ngAnimate',
-    		'ui.router',
-    		'ui.bootstrap',
-			'app.main'
-		]);
+	angular.module('app.module', ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'app.main']);
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app.js","/")
 },{"+7ZJp0":12,"buffer":9}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+
 require("./app.js");
 require("./routes.js");
 require("./main/main.index.js");
-}).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8c49c212.js","/")
+
+}).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7d5efa58.js","/")
 },{"+7ZJp0":12,"./app.js":1,"./main/main.index.js":3,"./routes.js":8,"buffer":9}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+
 require("./scripts/main.app.js");
 require("./scripts/main.config.js");
 require("./scripts/main.controller.js");
 require("./scripts/main.services.js");
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/main/main.index.js","/main")
 },{"+7ZJp0":12,"./scripts/main.app.js":4,"./scripts/main.config.js":5,"./scripts/main.controller.js":6,"./scripts/main.services.js":7,"buffer":9}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.main', []);
+	angular.module('app.main', []);
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/main/scripts/main.app.js","/main/scripts")
 },{"+7ZJp0":12,"buffer":9}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.main')
-		.config(routes);
+	angular.module('app.main').config(routes);
 
-		routes.$inject = ['$stateProvider'];
+	routes.$inject = ['$stateProvider'];
 
-		function routes ($stateProvider) {
-			$stateProvider
-			    .state('landing', {
-			    	url: '/',
-			   		templateUrl: 'assets/packages/main/partials/landing.html',
-			    	controller: "MainCtrl",
-			    	controllerAs: "vm"
-		    	});
-				
-			$stateProvider
-			    .state('landing2', {
-			    	url: '/2',
-			   		templateUrl: 'assets/packages/main/partials/landing2.html',
-			    	controller: "MainCtrl",
-			    	controllerAs: "vm"
-		    	});
-		}
+	function routes($stateProvider) {
+		$stateProvider.state('landing', {
+			url: '/',
+			templateUrl: 'assets/packages/main/partials/landing.html',
+			controller: "MainCtrl",
+			controllerAs: "vm"
+		});
+
+		$stateProvider.state('landing2', {
+			url: '/2',
+			templateUrl: 'assets/packages/main/partials/landing2.html',
+			controller: "MainCtrl",
+			controllerAs: "vm"
+		});
+	}
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/main/scripts/main.config.js","/main/scripts")
 },{"+7ZJp0":12,"buffer":9}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.main')
-		.controller('MainCtrl', MainCtrl);
+	angular.module('app.main').controller('MainCtrl', MainCtrl);
 
-		MainCtrl.$inject = ['$scope', 'TryOut'];
+	MainCtrl.$inject = ['$scope', 'TryOut'];
 
-		function MainCtrl ($scope, TryOut) {
-			var vm = this;
+	function MainCtrl($scope, TryOut) {
+		var vm = this;
 
-			vm.imgUrl = 'http://i.imgur.com/MQHYB.jpg'
-			vm.trying = trying;
+		vm.imgUrl = 'http://i.imgur.com/MQHYB.jpg';
+		vm.trying = trying;
 
-			function trying () {
-				TryOut()
-					.then(function(d) {
-						console.log(d);
-					})
-					.catch(function(e) {console.log(e)});
-			}
+		function trying() {
+			TryOut().then(function (d) {
+				console.log(d);
+			})['catch'](function (e) {
+				console.log(e);
+			});
 		}
+	}
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/main/scripts/main.controller.js","/main/scripts")
 },{"+7ZJp0":12,"buffer":9}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.main')
-		.service('TryOut', TryOut);
+	angular.module('app.main').service('TryOut', TryOut);
 
-		TryOut.$inject = ['$resource', '$q'];
+	TryOut.$inject = ['$resource', '$q'];
 
-		function TryOut ($resource, $q) {
-			var url = $resource('data/tryOut');
-			return function () {
-				return new $q(function (resolve, reject) {
-					url.get({}, function (d) {
-						if (!d || d.error)
-							reject("error: " + ((d) ? d.error : ""));
-						else resolve(d);
-					})
+	function TryOut($resource, $q) {
+		var url = $resource('data/tryOut');
+		return function () {
+			return new $q(function (resolve, reject) {
+				url.get({}, function (d) {
+					if (!d || d.error) reject("error: " + (d ? d.error : ""));else resolve(d);
 				});
-			}
-		}
+			});
+		};
+	}
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/main/scripts/main.services.js","/main/scripts")
 },{"+7ZJp0":12,"buffer":9}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-(function(){
+'use strict';
+
+(function () {
 	'use strict';
 
-	angular
-		.module('app.module')
-		.config(routes);
+	angular.module('app.module').config(routes);
 
-		routes.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+	routes.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-		function routes ($stateProvider, $urlRouterProvider, $locationProvider) {
-			$urlRouterProvider.otherwise('/');
-		    $locationProvider.html5Mode(true);
-		}
+	function routes($stateProvider, $urlRouterProvider, $locationProvider) {
+		$urlRouterProvider.otherwise('/');
+		$locationProvider.html5Mode(true);
+	}
 })();
+
 }).call(this,require("+7ZJp0"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/routes.js","/")
 },{"+7ZJp0":12,"buffer":9}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){

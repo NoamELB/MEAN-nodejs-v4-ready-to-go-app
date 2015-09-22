@@ -8,7 +8,7 @@
 		MainCtrl.$inject = ['$scope', 'TryOut'];
 
 		function MainCtrl ($scope, TryOut) {
-			var vm = this;
+			let vm = this;
 
 			vm.imgUrl = 'http://i.imgur.com/MQHYB.jpg'
 			vm.trying = trying;
