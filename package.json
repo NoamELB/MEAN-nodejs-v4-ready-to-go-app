@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "body-parser": "~1.13.3",
+    "chai": "~3.3.0",
     "chalk": "~1.1.1",
     "compression": "~1.5.2",
     "connect-mongo": "~0.8.2",
@@ -34,7 +35,10 @@
     "q": "~1.4.1"
   },
   "engines": {
-    "node": "4.0.x"
+    "node": "4.1.x"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-mocha": "~2.1.3"
+  }
 }

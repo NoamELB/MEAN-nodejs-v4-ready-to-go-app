@@ -4,8 +4,15 @@
 		server 		= require("gulp-develop-server"),
 		browserify 	= require("gulp-browserify"),
 		uglify 		= require("gulp-uglify"),
+		mocha 		= require("gulp-mocha"),
 		minifyCSS 	= require("gulp-minify-css"),
 		rename 		= require("gulp-rename");
+
+	// Server unit tests
+	gulp.task("server:tests", function () {
+  		return gulp.src('./server/tests/**/*.js')
+				.pipe(mocha());
+	});
 
 	// sass compiler
 	gulp.task("compile:css", function(){
@@ -51,7 +58,7 @@
 
 	// WATCH
 	// =====
-	gulp.task("watch", ["compile:css", "scripts:browserify", "server:start"], function(){
+	gulp.task("watch", ["server:tests", "compile:css", "scripts:browserify", "server:start"], function(){
 		gulp.watch(["app/assets/styles/*.scss"], ["compile:css"]);
 		gulp.watch(["app/assets/styles/style.css"], ["minify:css"]);
 		gulp.watch(["app/assets/packages/*.js", "app/assets/packages/**/scripts/*.js"], ["scripts:browserify"]);

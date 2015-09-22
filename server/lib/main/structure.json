@@ -1,0 +1,14 @@
+{
+	"templates": ["controller", 
+				  "middleware", 
+				  "model", 
+				  "router", 
+				  "services"],
+	"tests":	 ["controller", 
+				  "middleware", 
+				  "model", 
+				  "services"],
+	"mocks":	 ["services",
+				  "data"],
+	"folders": 	 ["user"]
+}
