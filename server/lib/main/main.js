@@ -2,6 +2,8 @@
 // External dependencies
 let		fs 				= require('fs'),
 		cors 			= require('cors'),
+		http			= require('http'),
+		//https			= require('https'),
 		helmet			= require('helmet'),
 	 	express 		= require('express'),
 		mongoose 		= require('mongoose'),
@@ -14,7 +16,7 @@ let		fs 				= require('fs'),
 
 // Internal
 let 	Bootstrap 		= require('./bootstrap.js'),
-		config			= require('./config.js');
+		Config			= require('./config.js');
 		
 /**
  * Main of the app
@@ -26,6 +28,7 @@ class Main {
 	constructor(root) {
         this.app = express();
 		this.root = root;
+		this.config = (new Config()).enviorment;
     }
 	
 	/**
@@ -44,31 +47,30 @@ class Main {
 		this.app.set('port', (process.env.PORT || 5000));	
 		this.app.use(express.static(this.root + '/app'));
 		this.app.use('/assets', express.static(this.root + '/assets')); // HTML 5 mode fixes
-		this.app.use(prerender.set('prerenderServiceUrl', config.prerenderUrl)); // prerender help with SEO stuff
-		this.app.use(/\/(?!(data)).*/, function(req, res) { // everything that not '/data' will go through the index.html
-			res.sendFile('app/' + config.index + '.html', { root: this.root });
-		});
-		
-		this.app.get("/", function(req, res) {
-			res.render(config.index);
-		});
+		this.app.use(prerender.set('prerenderServiceUrl', this.config.prerenderUrl)); // prerender help with SEO stuff
+		// everything that not '/data' will go through the index.html
+		this.app.use(/\/(?!(data)).*/, (req, res) => { res.sendFile('app/' + this.config.index + '.html', { root: this.root }); });
+		this.app.get("/", (req, res) => { res.render(this.config.index); });
 	}
 	
 	/**
-	 * Listens to the port, and instantiates the routes of the app
+	 * Create server with http, for using https replace this (great manual here: http://blog.mgechev.com/2014/02/19/create-https-tls-ssl-application-with-express-nodejs/)
 	 */
-	attachListener() {
-		this.app.listen(this.app.get('port'), () => {
-			console.log("\t+*+*+ New server on localhost:" + this.app.get('port') + " +*+*+");
-		});
+	createServer() {
+		http.createServer(this.app).listen(this.app.get('port'));
+		// https.createServer({ 
+	  	// 	key: fs.readFileSync('key.pem'),
+      	// 	cert: fs.readFileSync('cert.pem')
+	  	// }, this.app.get('port')).listen(this.app.get('port'));
+		console.info("\t+*+*+ New server on localhost:" + this.app.get('port') + " +*+*+");
 	}
 	
 	/**
 	 * Setting up the db
 	 */ 
 	connectToDb() {
-		// mongoose.connect(config.dbUrl);
-		// var db = mongoose.connection;
+		// mongoose.connect(this.config.dbUrl);
+		// let db = mongoose.connection;
 		// db.on('error', console.error.bind(console, 'connection error:'));
 		
 		// app.use(session({secret: 'secretcat',
@@ -79,18 +81,16 @@ class Main {
 		
 		// db.once('open', () => {
 		// 	console.log("\t+*+*+ Connected to mongodb! on MongoLab +*+*+");
+		let bootstrap = new Bootstrap(this.app);
+		bootstrap.init();
 		// });
 		
-		// TODO move it inside the db.once
-		let bootstrap = new Bootstrap(this.app);
-		bootstrap.init();			
+					
 	}
 	
 	//robots.txt generate based on env
 	writeRobotsFile() {
-		fs.writeFile(this.root + '/app/robots.txt', config.robots, function(e) {
-			if (e) console.log(e);
-		});
+		fs.writeFile(this.root + '/app/robots.txt', this.config.robots, (e) => { if (e) console.error(e); });
 	}
 };
 

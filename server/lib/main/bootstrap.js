@@ -8,6 +8,8 @@ class Bootstrap {
      */
     constructor(app) {
         this.app = app;
+        
+        // TODO: remove this route, only here for testing that your app is damn fine
         app.get('/data/tryOut', (req, res) => {
             res.send({data: "tried successfully"});
         });

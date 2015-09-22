@@ -1,14 +1,24 @@
-var env = require('./env.json');
-//local ==> mongodb://127.0.0.1:27017/test
-function config() {
-  	var node_env = 'development';
-  	switch (process.env.NODE_ENV) {
-		case 'production': node_env = 'production';
-			break;
-		case 'staging': node_env = 'staging';
-			break;
-	}
-	return env[node_env];
-};
+'use strict';
 
-module.exports = config();
+/**
+ * Config to get the envoirment object from an env file, defaultly in env.json
+ * Can set infinity enviorments
+ */
+class Config {
+    constructor(env) {
+		this.env = env || require('./env.json');
+        this.node_env = 'development';
+		switch (process.env.NODE_ENV) {
+			case 'production': this.node_env = 'production';
+				break;
+			case 'staging': this.node_env = 'staging';
+				break;
+		}
+    }
+	
+	get enviorment () {
+		return this.env[this.node_env];
+	}
+}
+
+module.exports = Config;
