@@ -1,5 +1,5 @@
 # A MEAN ready to go app
-## Node v4.1.0
+## Node v4.1.1
 ## Angular 1.4.6
 
 Server guide:
